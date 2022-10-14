@@ -10,6 +10,7 @@ class BookController {
         this.router.get('/:id', (request, response, next) => this.getBook(request, response, next));
         this.router.post('/', (request, response) => this.addBook(request, response));
         this.router.delete('/:id', (request, response) => this.deleteBook(request, response));
+        this.router.post('/loan', (request, response) => this.borrowBook(request, response));
     }
 
     async getAllBooks(request, response) {
@@ -47,6 +48,11 @@ class BookController {
         let book = await this.bookRepository.deleteBook(id)
 
         response.status(500).send(book);
+    }
+
+    async borrowBook(request, response){
+        let book = await this.bookRepository.borrowBook();
+        response.status(201).send(book);
     }
 
     static errorResponse(response, error) {

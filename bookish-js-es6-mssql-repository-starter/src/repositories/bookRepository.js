@@ -51,4 +51,19 @@ export default class BookRepository {
         // do all or nothing, atomicity
         // research concept of a transaction - "unit of work": ACID Principles    
     }
+
+    async borrowBook(){
+        console.log("borrow book ");
+        const date = new Date();
+        date.setDate(date.getDate() + 30)
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let dueDate = `${year}-${month}-${day}`;
+
+        console.log(dueDate)
+        await executeSql('UPDATE copies SET borrower = @username, duedate = @dueDate WHERE id = @bookid', {'username': 'student', 'dueDate': dueDate, 'bookid': '1' });
+    }
 }

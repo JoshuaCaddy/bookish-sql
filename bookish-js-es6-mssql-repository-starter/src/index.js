@@ -14,6 +14,7 @@ const app = express();
 app.use(passport.initialize());
 app.use(express.json());
 
+app.use('/login', LoginController)
 app.use('/books',  BookController);
 
 // handle errors, log diagnostic, give user simple error message
